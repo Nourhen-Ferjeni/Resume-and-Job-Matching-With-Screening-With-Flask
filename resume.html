@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Resume Intelligence Platform | Talent Optimization</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Source+Sans+Pro:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0066cc;
+            --secondary-color: #004080;
+            --accent-color: #00aaff;
+            --light-color: #f0f8ff;
+            --dark-color: #002b5c;
+            --text-color: #2d3748;
+            --light-text: #ffffff;
+            --success-color: #10b981;
+            --feature-1: #6366f1;
+            --feature-2: #ec4899;
+            --feature-3: #f59e0b;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8fafc;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-text);
+            padding: 40px 30px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--feature-1), var(--feature-2), var(--feature-3));
+        }
+
+        .header h1 {
+            color: white;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 25px;
+            opacity: 0.9;
+        }
+
+        h2 {
+            text-align: center;
+            margin: 50px 0 30px;
+            font-weight: 600;
+            color: var(--dark-color);
+            font-size: 1.8rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--feature-1), var(--feature-2));
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .features-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+            border-top: 4px solid;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .feature-card.feature-1 {
+            border-color: var(--feature-1);
+        }
+
+        .feature-card.feature-2 {
+            border-color: var(--feature-2);
+        }
+
+        .feature-card.feature-3 {
+            border-color: var(--feature-3);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: inherit;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin: 0 0 15px;
+            color: inherit;
+        }
+
+        .feature-card p {
+            margin: 0;
+            color: var(--text-color);
+            opacity: 0.9;
+        }
+
+        .upload-container {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin: 50px 0;
+            text-align: center;
+        }
+
+        .file-input-container {
+            position: relative;
+            width: 100%;
+            margin: 30px 0;
+        }
+
+        .file-input-label {
+            display: block;
+            width: 100%;
+            padding: 40px 20px;
+            background-color: var(--light-color);
+            border: 2px dashed var(--accent-color);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .file-input-label:hover {
+            background-color: #e1f0ff;
+        }
+
+        .file-input-label i {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            cursor: pointer;
+        }
+
+        input[type="submit"] {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+        }
+
+        .results-section {
+            margin-top: 50px;
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .result-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .result-title i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .skill-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--feature-1), var(--accent-color));
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .profile-item {
+            background: var(--light-color);
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .profile-item strong {
+            display: block;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .education-item {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .education-item::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+
+        .tech-pill {
+            display: inline-block;
+            background-color: #e0f2fe;
+            color: var(--primary-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.1), transparent);
+            margin: 40px 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .features-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>AI Resume Intelligence Platform</h1>
+            <p>Advanced talent optimization system powered by NLP and machine learning to transform your recruitment workflow and career progression</p>
+        </div>
+
+        <h2>Key Features</h2>
+        <div class="features-container">
+            <div class="feature-card feature-1" style="color: var(--feature-1);">
+                <i class="feature-icon fas fa-file-alt"></i>
+                <h3>Intelligent Resume Parsing</h3>
+                <p>Our system utilizes NLP techniques to extract essential information from resumes, including contact details, skills, education, and work experience. This automated parsing eliminates the need for manual data entry and ensures accuracy and efficiency.</p>
+            </div>
+            
+            <div class="feature-card feature-2" style="color: var(--feature-2);">
+                <i class="feature-icon fas fa-project-diagram"></i>
+                <h3>Precision Categorization</h3>
+                <p>Machine learning algorithms categorize resumes into predefined categories based on specific criteria set by recruiters or hiring managers. This categorization enables recruiters to quickly identify top candidates for further evaluation.</p>
+            </div>
+            
+            <div class="feature-card feature-3" style="color: var(--feature-3);">
+                <i class="feature-icon fas fa-bullseye"></i>
+                <h3>Smart Job Matching</h3>
+                <p>Leveraging machine learning models, our system recommends relevant job openings to candidates based on their skills, experience, and preferences. This personalized approach enhances candidate engagement and increases the likelihood of successful matches.</p>
+            </div>
+        </div>
+
+        <div class="upload-container">
+            <h2>Analyze Your Resume</h2>
+            <p>Upload your resume to unlock powerful insights and career opportunities</p>
+            
+            <form action="/pred" method="post" enctype="multipart/form-data">
+                <div class="file-input-container">
+                    <label class="file-input-label">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <strong>Drag & drop your resume here</strong><br>
+                        <span>or click to browse files (PDF or TXT)</span>
+                    </label>
+                    <input type="file" name="resume" accept=".pdf, .txt" required>
+                </div>
+                <input type="submit" value="Analyze With AI">
+            </form>
+        </div>
+
+        {% if message %}
+        <div class="result-card">
+            <p class="text-center">{{message}}</p>
+        </div>
+        {% endif %}
+
+        {% if predicted_category %}
+        <div class="results-section">
+            <div class="result-card">
+                <h3 class="result-title"><i class="fas fa-chart-bar"></i> Career Analysis Report</h3>
+                <div class="profile-grid">
+                    <div class="profile-item">
+                        <strong>Professional Category</strong>
+                        <span style="color: var(--primary-color); font-weight: 500;">{{predicted_category}}</span>
+                    </div>
+                    <div class="profile-item">
+                        <strong>Recommended Roles</strong>
+                        <span style="color: var(--primary-color); font-weight: 500;">{{recommended_job}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-card">
+                <h3 class="result-title"><i class="fas fa-user-tie"></i> Professional Profile</h3>
+                <div class="profile-grid">
+                    <div class="profile-item">
+                        <strong>Full Name</strong>
+                        {{name}}
+                    </div>
+                    <div class="profile-item">
+                        <strong>Contact Number</strong>
+                        {{phone}}
+                    </div>
+                    <div class="profile-item">
+                        <strong>Email Address</strong>
+                        {{email}}
+                    </div>
+                </div>
+            </div>
+
+            {% if extracted_skills %}
+            <div class="result-card">
+                <h3 class="result-title"><i class="fas fa-code"></i> Technical Skills Analysis</h3>
+                <div>
+                    {% for skill in extracted_skills %}
+                    <span class="skill-badge">{{ skill }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if extracted_education %}
+            <div class="result-card">
+                <h3 class="result-title"><i class="fas fa-graduation-cap"></i> Education & Credentials</h3>
+                <div>
+                    {% for edu in extracted_education %}
+                    <div class="education-item">{{ edu }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+
+</html>
